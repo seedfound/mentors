@@ -196,6 +196,10 @@
         alert('This mentor is already fully selected. Please choose another mentor.');
         return;
       }
+      if (mentor && mentorLimits[mentor]) {
+        mentorLimits[mentor] -= 1;
+      }
+
       // Create an object with the form data
       var formData = {
         department: department,
