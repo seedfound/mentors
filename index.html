@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mentor Select Web Application by Seed Foundation</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>St.John's College of Arts & Science, Ammandivilai</h1>
+  <h2>Mentors Selection Application</h2>
+  <h3>Powered by Seed Foundation</h3>
+  <form id="studentForm" action="/submit" method="POST">
+    <div>
+      <label for="departmentSelect">Department:</label>
+      <select id="departmentSelect">
+        <option value="" disabled selected>Select Department</option>
+      </select>
+      <p></p>
+    </div>
+
+    <div>
+      <label for="yearSelect">Year:</label>
+      <select id="yearSelect" required>
+        <option value="" disabled selected>Select Year</option>
+        <option value="year1">Year 1</option>
+        <option value="year2">Year 2</option>
+        <option value="year3">Year 3</option>
+      </select>
+      <p></p>
+    </div>
+
+    <div>
+      <label for="nameSelect">Name:</label>
+      <textarea id="nameSelect"></textarea>
+      <p></p>
+    </div>
+
+    <div>
+      <div>
+        <label for="mentorSelect">Mentor:</label>
+        <select id="mentorSelect">
+          <option value="" disabled selected>Select Mentor</option>
+        </select>
+        <p></p>
+      </div>
+    </div>
+
+    <div>
+      <label for="notesInput">Notes:</label>
+      <textarea id="notesInput"></textarea>
+    </div>
+    <p></p>
+    <input type="submit" value="Submit">
+    </form>
+  </form>
+
+  <script>
+    var csvFilePath = 'Dept.csv'; // Replace with your CSV file path
+    var mentorsCsvFilePath = 'Mentors.csv'; // Replace with the path to Mentors.csv
+
+    fetch(csvFilePath)
+      .then(response => response.text())
+      .then(data => {
+        var lines = data.split('\n');
+        var jsonData = [];
+
+        for (var i = 1; i < lines.length; i++) {
+          var line = lines[i].split(',');
+          var department = line[0].trim();
+
+          if (department) {
+            jsonData.push(department);
+          }
+        }
+
+        var departmentSelect = document.getElementById('departmentSelect');
+
+        // Clear existing options
+        departmentSelect.innerHTML = '';
+
+        // Populate department dropdown with data from CSV
+        for (var i = 0; i < jsonData.length; i++) {
+          var option = document.createElement('option');
+          option.value = jsonData[i];
+          option.text = jsonData[i];
+          departmentSelect.appendChild(option);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching CSV file:', error);
+      });
+
+    fetch(mentorsCsvFilePath)
+      .then(response => response.text())
+      .then(data => {
+        var lines = data.split('\n');
+        var jsonData = [];
+
+        for (var i = 1; i < lines.length; i++) {
+          var line = lines[i].split(',');
+          var mentor = line[0].trim();
+
+          if (mentor) {
+            jsonData.push(mentor);
+          }
+        }      
+
+        var mentorSelect = document.getElementById('mentorSelect');
+
+        // Clear existing options
+        mentorSelect.innerHTML = '';
+
+        // Populate mentor dropdown with data from Mentors.csv
+        for (var i = 0; i < jsonData.length; i++) {
+          var option = document.createElement('option');
+          option.value = jsonData[i];
+          option.text = jsonData[i];
+          mentorSelect.appendChild(option);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching Mentors CSV file:', error);
+      });
+    var mentorLimits = {
+      "Dr. Rev. Fr. John Bosco": 2,
+      "Rev. Fr. Sam F. Mathew": 20,
+      "Rev. Fr. Nixson": 20,
+      "Rev. Fr. Glacin": 20,
+      "Rev. Fr. John Britto": 20,
+      "Dr. M. Edwin Gnanadhas (Principal)": 20,
+      "Dr. R. Jeba Malar (Vice - Principal)": 20,
+      "Dr. C. Prabha Joselin": 20,
+      "Dr. G. Sujilin Gnanajeni": 20,
+      "Dr. B. Priya": 20,
+      "Mr. A. Arun Bejo": 20,
+      "Dr. E. Anita": 20,
+      "Ms. F. Infant Grice Sabiya": 20,
+      "Mrs. A. Archana": 20,
+      "Ms. M.U.Mabisya Persive": 20,
+      "Dr. G. Godwin": 20,
+      "Dr. J. Blesslin Diamond": 20,
+      "Ms. Valan Anusha .J": 20,
+      "Ms. Cathrin Jonisha S": 20,
+      "Mrs. S. Sheeba Kumari": 20,
+      "Vivekha S": 20,
+      "Oviya E J": 20,
+      "Mrs. S. Asha Parvin": 20,
+      "Dr. T. Sujin": 20,
+      "Mrs. D. Joy Juli": 20,
+      "Ms. Anzil Ninu A": 20,
+      "Dr. S. David": 20,
+      "Mrs. G. Parvathi": 20,
+      "Dr. S. Sony": 20,
+      "Dr. Vibin Hershon.W": 20,
+      "Mr. Durai Singh. M": 20,
+      "Dr. S.K. Dhanalakshmi": 20,
+      "Ms. Mary Macleen Sheema .K": 20,
+      "Dr. R. Amala Rose": 20,
+      "Mrs. S. Renuka": 20,
+      "Ms. A. Amala Arul Reji": 20,
+      "Dr. R. Kavitha Jaba Malar": 20,
+      "Ms.P. Ganga Easwari": 20,
+      "Mrs. P. Jasmine Lizy": 20,
+      "Mrs. T.P. Pradeepa": 20,
+      "Dr.S. Elizabeth Bernie": 20,
+      "Dr. J.Virgin Alangara Sheeba": 20,
+      "Dr. C. Bency": 20,
+      "Dr. S. Ancy Mary": 20,
+      "Dr. L.T. Cherin Monish Femila": 20,
+      "Dr. Jeba Lisa.J": 20,
+      "Mrs. G. Ishiya Manji": 20,
+      "Dr. G. Jai Arul Jose": 20,
+      "Mrs. P.J. Mahiba": 20,
+      "Mrs. G. Magdeline Smaya": 20,
+      "Mrs. S. Sterose": 20,
+      "Dr. J. Clemy Monicka": 20,
+      "Dr. T. Sunitha": 20,
+      "Dr. C.S. Juliet Brintha": 20,
+      "Dr. R. Arul Mathi": 20,
+      "Mr. M.J. Praveen": 20,
+      "Mrs. V. A .Shalini": 20
+    };
+
+
+    document.getElementById('studentForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Get the form data
+      var department = document.getElementById('departmentSelect').value;
+      var year = document.getElementById('yearSelect').value;
+      var name = document.getElementById('nameSelect').value;
+      var mentor = document.getElementById('mentorSelect').value;
+      var notes = document.getElementById('notesInput').value;
+        
+      if (mentor && mentorLimits[mentor] && mentorLimits[mentor] <= 0) {
+        alert('This mentor is already fully selected. Please choose another mentor.');
+        return;
+      }
+      // Create an object with the form data
+      var formData = {
+        department: department,
+        year: year,
+        name: name,
+        mentor: mentor,
+        notes: notes
+      };
+      console.log("data", formData);
+
+    //   // Send the form data to the server-side script for processing
+    fetch('http://localhost:4000/submit', {
+        method: 'POST',
+        headers: {
+        'Accept': 'application.json',
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (response.ok) {
+        console.log('Form data submitted successfully');
+        // Perform any desired actions upon successful form submission
+        alert('Data added successfully');
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+        } else {
+        console.error('Form data submission failed');
+        // Handle the error condition appropriately
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting form data:', error);
+        // Handle any errors that occurred during form submission
+    });
+    });
+  </script>
+
+</body>
+</html>
